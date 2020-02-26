@@ -116,3 +116,20 @@ tr:nth-child(3n) td {
   background-color: #0a0a0a;
   color: #fafafa;
 }
+
+.numpad {
+  width: 630px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.numpad-item {
+  width: 60px;
+  height: 60px;
+  border: 2px solid black;
+}
+.numpad-item:hover {
+  cursor: pointer;
+  background-color: #0a0a0a;
+  color: #fafafa;
+}

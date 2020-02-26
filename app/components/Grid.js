@@ -1,6 +1,6 @@
 import React from 'react';
 import Hover from './Hover';
-import solve from './utils/solver';
+import checkEntry from './utils/solver';
 
 
 function GridItem({ num }) {
@@ -17,23 +17,37 @@ function GridItem({ num }) {
   );
 }
 
+function Numpad ({ selectNum }) {
+  let nums = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
+
+  return (
+    <ul className='numpad'>
+      { nums.map(item => {
+        return (
+          <li key={ item } className='numpad-item flex-center' onClick={ () => selectNum( item ) }>{ item }</li>
+        );
+      }) }
+    </ul>
+  );
+}
+
 export default class Grid extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       matrix: [
-        [ 9, 4, 2, 7, 6, 1, 8, 5, 3 ],
-        [ 3, 8, 7, 5, 9, 2, 6, 4, 1 ],
-        [ 6, 1, 5, 8, 3, 4, 2, 9, 7 ],
-        [ 2, 6, 3, 1, 4, 7, 5, 8, 9 ],
-        [ 8, 7, 1, 9, 2, 5, 3, 6, 4 ],
-        [ 4, 5, 9, 3, 8, 6, 1, 7, 2 ],
-        [ 7, 9, 6, 2, 1, 8, 4, 3, 5 ],
-        [ 5, 2, 8, 4, 7, 3, 9, 1, 6 ],
-        [ 1, 3, 4, 6, 5, 9, 7, 2, 8 ]
+        [ 0, 0, 0, 8, 0, 1, 0, 0, 0 ],
+        [ 0, 0, 0, 0, 0, 0, 4, 3, 0 ],
+        [ 5, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 0, 0, 7, 0, 8, 0, 0 ],
+        [ 0, 0, 0, 0, 0, 0, 1, 0, 0 ],
+        [ 0, 2, 0, 0, 3, 0, 0, 0, 0 ],
+        [ 6, 0, 0, 0, 0, 0, 0, 7, 5 ],
+        [ 0, 0, 3, 4, 0, 0, 0, 0, 0 ],
+        [ 0, 0, 0, 2, 0, 0, 6, 0, 0 ]
       ],
-      solved: false
+      selectedNum: [ -1, -1 ]
       /*
       matrix: [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ], 
       [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -49,27 +63,40 @@ export default class Grid extends React.Component {
     };
 
     this.updateNum = this.updateNum.bind(this);
-    this.solvePuzzle = this.solvePuzzle.bind(this);
+    this.selectCell = this.selectCell.bind(this);
     this.clearPuzzle = this.clearPuzzle.bind(this);
   }
 
-  updateNum(ind, innerInd) {
-    // Utilizing only for primitive testing purposes. To be refactored.
-    const selection = prompt('Which number?');
+  selectCell(ind, innerInd) {
+    this.setState({
+      selectedNum: [ind, innerInd]
+    });
+  }
 
-    this.setState((prevState) => ({
-      matrix: prevState.matrix.map((item, index) => {
-        return (
-          index === ind ? (
-            item.map((item2, index2) => {
-              return (
-                index2 === innerInd ? selection : item2
-              );
-            })
-          ) : item
-        );
-      })
-    }));
+  updateNum(num) {
+
+    const [ ind, innerInd ] = this.state.selectedNum;
+
+    let isOk = checkEntry( num, ind, innerInd, this.state.matrix );
+
+    if ( isOk ) {
+      this.setState((prevState) => ({
+        matrix: prevState.matrix.map((item, index) => {
+          return (
+            index === ind ? (
+              item.map((item2, index2) => {
+                return (
+                  index2 === innerInd ? num : item2
+                );
+              })
+            ) : item
+          );
+        })
+      }));
+    } else {
+      alert( 'Invalid entry' );
+    }
+    
   }
 
   clearPuzzle() {
@@ -87,12 +114,6 @@ export default class Grid extends React.Component {
     })
   }
 
-  solvePuzzle() {
-    let solved = solve( this.state.matrix );
-    this.setState({
-      solved: solved
-    });
-  }
 
   render() {
     return (
@@ -106,7 +127,9 @@ export default class Grid extends React.Component {
                     const num = this.state.matrix[ index ][ innerIndex ];
 
                     return (
-                      <td key={ `${index}-${innerIndex}` } className='grid-item flex-center' onClick={ () => this.updateNum( index, innerIndex ) }>
+                      <td key={ `${index}-${innerIndex}` } className={ 
+                        index === this.state.selectedNum[0] ? 'grid-item flex-center bg-light' : 'grid-item flex-center' } 
+                        onClick={ () => this.selectCell( index, innerIndex ) }>
                         <GridItem num={ num } />
                       </td>
                     )
@@ -116,13 +139,13 @@ export default class Grid extends React.Component {
             })}
           </tbody>
         </table>
+
+        <Numpad selectNum={ this.updateNum } />
         
         <div className='flex-center btn-col'>
           <button className='btn' onClick={ this.solvePuzzle }>Solve Puzzle</button>
           <button className='btn' onClick={ this.clearPuzzle }>Clear Puzzle</button>
         </div>
-
-        <div>{ this.state.solved === true ? <div> SOLVED </div> : null }</div>
       </React.Fragment>
     );
   }
