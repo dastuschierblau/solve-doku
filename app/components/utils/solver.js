@@ -1,13 +1,3 @@
-// To be removed once GUI is updated with number pad for direct number input
-function isValidInt( num ) {
-  let nums = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
-  for ( let i = 0; i < nums.length; i++ ) {
-    if ( nums[i].toString() === num ) return true;
-  }
-
-  return false;
-}
-
 function findEmptySpace( matrix ) {
   for ( let i = 0; i < 9; i++ ) {
     for ( let j = 0; j < 9; j++ ) {
