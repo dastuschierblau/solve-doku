@@ -73,6 +73,7 @@ export default class Grid extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       matrix: boards[nextProps.difficulty],
+      difficulty: nextProps.difficulty,
     });
   }
 
