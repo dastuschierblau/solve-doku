@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html,
 body,
 #app {
@@ -157,3 +158,140 @@ tr:nth-child(3n) td {
   background-color: #0a0a0a;
   color: #fafafa;
 }
+=======
+html, body, #app {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+* { box-sizing: inherit; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #C7B6FF;
+}
+
+.header {
+  background-color: #403075;
+  color: #fafafa;
+  font-weight: bold;
+}
+
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grid {
+  width: 630px;
+  height: 630px;
+  
+}
+
+.grid-row {
+  display: flex;
+  flex-direction: row;
+  height: 70px;
+}
+
+.grid-item {
+  background-color: royalblue;
+  flex: 1;
+  font-size: 40px;
+  font-weight: bold;
+  color: #0A0A0A;
+}
+
+.grid-number {
+  width: 66px;
+  height: 66px;
+}
+
+.bg-light {
+  background-color: #dadada;
+  cursor: pointer;
+}
+
+td {
+  border:1px solid;
+}
+td:first-child {
+  border-left:solid;
+}
+td:nth-child(3n) {
+  border-right:solid ;
+}
+tr:first-child {
+  border-top:solid;
+}
+tr:nth-child(3n) td {
+  border-bottom:solid ;
+}
+
+.btn-col {
+  justify-content: space-around;
+  width: 630px;
+  height: 150px;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  background-color: #403075;
+  color: #fafafa;
+  width: 90%;
+  height: 50px;
+  font-size: 1.6em;
+}
+.btn:hover {
+  cursor: pointer;
+  background-color: #0a0a0a;
+  color: #fafafa;
+}
+
+.numpad {
+  width: 630px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.numpad-item {
+  width: 60px;
+  height: 60px;
+  border: 2px solid black;
+}
+.numpad-item:hover {
+  cursor: pointer;
+  background-color: #0a0a0a;
+  color: #fafafa;
+}
+>>>>>>> 3f70c6cd6911b59b6d1d0277285dbc141ff5fc94
